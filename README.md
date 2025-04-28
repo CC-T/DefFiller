@@ -29,6 +29,14 @@ Example samples for each checkpoint will be saved in “generation_samples”.
 ## Acknowledgements
 This repo is mainly inspired by [GLIGEN](https://github.com/gligen/GLIGEN). We thank the authors a lot for their valuable efforts.
 
+## Guidelines
+Based on our extensive experimentation, we provide the following guidelines for effectively using DefFiller:
+
+1. DefFiller contributes most significantly to detection performance in data-scarce scenarios ($≤100$ samples per defect category). For datasets with abundant samples ($>1000$ per category), the improvements are more modest.
+2. When implementing DefFiller for dataset expansion, we recommend using a guidance scale ($\omega_{cfg}$) of 2-4 for optimal results, as values in this range provide the best balance between defect fidelity and background consistency.
+3. Generated images should be carefully filtered before adding to the training set. Specifically, we found that including only samples with IoU scores $\geq0.6$ between the conditioning mask and a pre-trained detector's prediction ensures high-quality training samples.
+4. The method is less effective for extremely small defects ($<10$ pixels in width) or highly textured backgrounds where defect-background boundaries become ambiguous. In these scenarios, we recommend using more targeted mask conditions that emphasize the defect region.
+
 ## Citation
 Please consider citing our paper in your publications if the project helps your research. BibTeX reference is as follows.
 ```
